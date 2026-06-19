@@ -3,12 +3,133 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ryudo Suzuki</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+            margin: 40px auto;
+            max-width: 900px;
+            padding: 0 20px;
+            background-color: #ffffff;
+            color: #222222;
+        }
+
+        header {
+            border-bottom: 1px solid #222222;
+            margin-bottom: 35px;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            font-size: 2.2em;
+        }
+
+        h2 {
+            border-bottom: 1px solid #cccccc;
+            padding-bottom: 5px;
+            margin-top: 35px;
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: #333333;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            padding-left: 22px;
+        }
+
+        a {
+            color: #004488;
+        }
+
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid #dddddd;
+            padding-top: 15px;
+            font-size: 0.9em;
+            color: #555555;
+        }
+
+        .name-jp {
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+
+        .affiliation {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Ryudo Suzuki</h1>
-    <p>Welcome to my homepage.</p>
+    <header>
+        <h1>Ryudo Suzuki</h1>
+        <p class="name-jp">鈴木 隆人</p>
+
+        <nav>
+            <a href="index.html">About</a>
+            <a href="cv.html">CV</a>
+            <a href="publications.html">Publications</a>
+            <a href="presentations.html">Presentations</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>About</h2>
+            <p class="affiliation">
+                京都大学大学院理学研究科 物理学・宇宙物理学専攻 博士後期課程。
+            </p>
+            <p>
+                統計物理学、摩擦現象、粉体系などに興味があります。
+            </p>
+        </section>
+
+        <section>
+            <h2>Research Interests</h2>
+            <ul>
+                <li>Statistical physics</li>
+                <li>Friction</li>
+                <li>Granular matter</li>
+                <li>Soft matter</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Links</h2>
+            <ul>
+                <li><a href="cv.html">CV / 履歴書</a></li>
+                <li><a href="presentations.html">Presentations / 発表</a></li>
+                <li><a href="publications.html">Publications / 論文</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Contact</h2>
+            <p>
+                Email: suzuki.ryudo.55e [at] st.kyoto-u.ac.jp
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Ryudo Suzuki</p>
+    </footer>
 </body>
 
 </html>
