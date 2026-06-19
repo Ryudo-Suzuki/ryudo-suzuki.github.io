@@ -70,8 +70,42 @@
             font-size: 1.1em;
         }
 
-        .affiliation {
+        .intro {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
             margin-top: 20px;
+        }
+
+        .intro-text {
+            flex: 1;
+        }
+
+        .profile-photo {
+            width: 260px;
+            max-width: 100%;
+            border-radius: 6px;
+            border: 1px solid #dddddd;
+        }
+
+        .affiliation {
+            margin-top: 0;
+        }
+
+        @media (max-width: 700px) {
+            .intro {
+                display: block;
+            }
+
+            .profile-photo {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin-bottom: 8px;
+            }
         }
     </style>
 </head>
@@ -85,25 +119,33 @@
             <a href="index.html">About</a>
             <a href="cv.html">CV</a>
             <a href="publications.html">Publications</a>
-            <a href="presentations.html">Presentations</a>
+            <a href="presentation.html">Presentations</a>
         </nav>
     </header>
 
     <main>
         <section>
             <h2>About</h2>
-            <p class="affiliation">
-                京都大学大学院理学研究科 物理学・宇宙物理学専攻 博士後期課程。
-            </p>
-            <p>
-                統計物理学、摩擦現象、粉体系などに興味があります。
-            </p>
+
+            <div class="intro">
+                <img src="images/profile.jpg" alt="Photo of Ryudo Suzuki" class="profile-photo">
+
+                <div class="intro-text">
+                    <p class="affiliation">
+                        京都大学大学院理学研究科 物理学・宇宙物理学専攻 博士後期課程。
+                    </p>
+                    <p>
+                        統計物理学、非平衡物理学、摩擦現象、粉体系などに興味があります。
+                    </p>
+                </div>
+            </div>
         </section>
 
         <section>
             <h2>Research Interests</h2>
             <ul>
                 <li>Statistical physics</li>
+                <li>Non-equilibrium physics</li>
                 <li>Friction</li>
                 <li>Granular matter</li>
                 <li>Soft matter</li>
