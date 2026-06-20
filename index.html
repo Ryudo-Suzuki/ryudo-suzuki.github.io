@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            const savedLanguage = localStorage.getItem("site-language") || "ja";
+            document.documentElement.dataset.lang = savedLanguage;
+            document.documentElement.lang = savedLanguage;
+        })();
+    </script>
     <title>Ryudo Suzuki</title>
     <style>
         body {
@@ -22,6 +29,13 @@
             border-bottom: 1px solid #222222;
         }
 
+        .header-top {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         h1 {
             margin-bottom: 5px;
             font-size: 2.2em;
@@ -31,6 +45,10 @@
             margin-top: 35px;
             padding-bottom: 5px;
             border-bottom: 1px solid #cccccc;
+        }
+
+        h3 {
+            margin-top: 25px;
         }
 
         nav {
@@ -56,6 +74,10 @@
             padding-left: 22px;
         }
 
+        li {
+            margin-bottom: 8px;
+        }
+
         footer {
             margin-top: 50px;
             padding-top: 15px;
@@ -64,9 +86,46 @@
             color: #555555;
         }
 
-        .name-jp {
-            margin-top: 0;
-            font-size: 1.1em;
+        .language-button {
+            padding: 6px 14px;
+            border: 1px solid #333333;
+            border-radius: 999px;
+            color: #222222;
+            background-color: #ffffff;
+            font: inherit;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+
+        .language-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .lang-block.lang-en,
+        .lang-inline.lang-en {
+            display: none;
+        }
+
+        html[data-lang="en"] .lang-block.lang-ja,
+        html[data-lang="en"] .lang-inline.lang-ja {
+            display: none;
+        }
+
+        html[data-lang="en"] .lang-block.lang-en {
+            display: block;
+        }
+
+        html[data-lang="en"] .lang-inline.lang-en {
+            display: inline;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .note {
+            color: #555555;
+            font-size: 0.95em;
         }
 
         .intro {
@@ -152,11 +211,15 @@
             font-size: 0.95em;
         }
 
-        .affiliation {
-            margin-top: 0;
-        }
-
         @media (max-width: 700px) {
+            .header-top {
+                display: block;
+            }
+
+            .language-button {
+                margin-top: 12px;
+            }
+
             .intro {
                 display: block;
             }
@@ -180,52 +243,169 @@
 
 <body>
     <header>
-        <h1>Ryudo Suzuki - Homepage</h1>
-        <nav> <a href="index.html">About</a> <a href="cv.html">CV</a> <a href="publications.html">Publications</a> <a
-                href="presentations.html">Presentations</a> </nav>
+        <div class="header-top">
+            <h1>Ryudo Suzuki - Homepage</h1>
+            <button id="language-toggle" class="language-button" type="button">English</button>
+        </div>
+
+        <nav>
+            <a href="index.html">About</a>
+            <a href="cv.html">CV</a>
+            <a href="publications.html">Publications</a>
+            <a href="presentations.html">Presentations</a>
+        </nav>
     </header>
+
     <main>
-        <section>
+        <section class="lang-block lang-ja">
             <h1>About</h1>
+
             <div class="intro">
-                <figure class="profile-figure"> <img src="images/profile.png" alt="Photo of Ryudo Suzuki"
-                        class="profile-photo"> </figure>
+                <figure class="profile-figure">
+                    <img src="images/profile.png" alt="Photo of Ryudo Suzuki" class="profile-photo">
+                </figure>
+
                 <div class="intro-text">
-                    <p class="profile-name"> <strong>鈴木 隆人</strong> <span class="profile-name-en">/ Ryudo Suzuki</span>
+                    <p class="profile-name">
+                        <strong>鈴木 隆人</strong>
+                        <span class="profile-name-en">/ Ryudo Suzuki</span>
                         <span class="pronouns">(he/him)</span>
                     </p>
+
                     <dl class="profile-list">
                         <dt>所属</dt>
-                        <dd> 京都大学大学院理学研究科 物理学・宇宙物理学専攻<br> 佐々研究室 </dd>
+                        <dd>
+                            京都大学大学院理学研究科 物理学・宇宙物理学専攻<br>
+                            佐々研究室
+                        </dd>
+
                         <dt>学年</dt>
                         <dd>博士後期課程2年</dd>
+
                         <dt>研究の興味</dt>
-                        <dd class="research-tags"> <span>統計物理学</span> <span>非平衡物理学</span> <span>摩擦現象</span>
-                            <span>粉体系</span> <span>ソフトマター</span>
+                        <dd class="research-tags">
+                            <span>統計物理学</span>
+                            <span>非平衡物理学</span>
+                            <span>摩擦現象</span>
+                            <span>粉体系</span>
+                            <span>ソフトマター</span>
                         </dd>
                     </dl>
                 </div>
             </div>
         </section>
+
+        <section class="lang-block lang-en">
+            <h1>About</h1>
+
+            <div class="intro">
+                <figure class="profile-figure">
+                    <img src="images/profile.png" alt="Photo of Ryudo Suzuki" class="profile-photo">
+                </figure>
+
+                <div class="intro-text">
+                    <p class="profile-name">
+                        <strong>Ryudo Suzuki</strong>
+                        <span class="profile-name-en">/ 鈴木 隆人</span>
+                        <span class="pronouns">(he/him)</span>
+                    </p>
+
+                    <dl class="profile-list">
+                        <dt>Affiliation</dt>
+                        <dd>
+                            Department of Physics and Astronomy,<br>
+                            Graduate School of Science, Kyoto University<br>
+                            Sasa Laboratory
+                        </dd>
+
+                        <dt>Year</dt>
+                        <dd>Second-year doctoral student</dd>
+
+                        <dt>Research Interests</dt>
+                        <dd class="research-tags">
+                            <span>Statistical Physics</span>
+                            <span>Non-equilibrium Physics</span>
+                            <span>Friction</span>
+                            <span>Granular Matter</span>
+                            <span>Soft Matter</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
         <section>
-            <h2>Links</h2>
+            <h2>
+                <span class="lang-inline lang-ja">Links</span>
+                <span class="lang-inline lang-en">Links</span>
+            </h2>
+
             <ul>
-                <li> <a href="https://orcid.org/0009-0005-3344-2934" target="_blank" rel="noopener noreferrer"> ORCID
-                    </a> </li>
-                <li> <a href="https://scholar.google.co.jp/citations?user=VOgpxVUAAAAJ&amp;hl=ja&amp;oi=ao"
-                        target="_blank" rel="noopener noreferrer"> Google Scholar </a> </li>
-                <li> <a href="http://www.ton.scphys.kyoto-u.ac.jp/" target="_blank" rel="noopener noreferrer"> 佐々研究室
-                    </a> </li>
+                <li>
+                    <a href="https://orcid.org/0009-0005-3344-2934" target="_blank" rel="noopener noreferrer">
+                        ORCID
+                    </a>
+                </li>
+                <li>
+                    <a href="https://scholar.google.co.jp/citations?user=VOgpxVUAAAAJ&amp;hl=ja&amp;oi=ao"
+                        target="_blank" rel="noopener noreferrer">
+                        Google Scholar
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.ton.scphys.kyoto-u.ac.jp/" target="_blank" rel="noopener noreferrer">
+                        <span class="lang-inline lang-ja">佐々研究室</span>
+                        <span class="lang-inline lang-en">Sasa Laboratory</span>
+                    </a>
+                </li>
             </ul>
         </section>
+
         <section>
-            <h2>Contact</h2>
-            <p> Email: suzuki.ryudo.55e [at] st.kyoto-u.ac.jp </p>
+            <h2>
+                <span class="lang-inline lang-ja">Contact</span>
+                <span class="lang-inline lang-en">Contact</span>
+            </h2>
+
+            <p>
+                Email: suzuki.ryudo.55e [at] st.kyoto-u.ac.jp
+            </p>
         </section>
     </main>
+
+
     <footer>
         <p>&copy; Ryudo Suzuki</p>
     </footer>
+
+    <script>
+        (function () {
+            const button = document.getElementById("language-toggle");
+
+            function setLanguage(language) {
+                document.documentElement.dataset.lang = language;
+                document.documentElement.lang = language;
+                localStorage.setItem("site-language", language);
+
+                if (button) {
+                    button.textContent = language === "ja" ? "English" : "日本語";
+                    button.setAttribute(
+                        "aria-label",
+                        language === "ja" ? "Switch to English" : "日本語に切り替える"
+                    );
+                }
+            }
+
+            if (button) {
+                button.addEventListener("click", function () {
+                    const currentLanguage = document.documentElement.dataset.lang || "ja";
+                    setLanguage(currentLanguage === "ja" ? "en" : "ja");
+                });
+            }
+
+            setLanguage(document.documentElement.dataset.lang || "ja");
+        })();
+    </script>
 </body>
 
 </html>

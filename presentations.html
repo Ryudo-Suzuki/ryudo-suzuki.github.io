@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            const savedLanguage = localStorage.getItem("site-language") || "ja";
+            document.documentElement.dataset.lang = savedLanguage;
+            document.documentElement.lang = savedLanguage;
+        })();
+    </script>
     <title>Presentations | Ryudo Suzuki</title>
-
     <style>
         body {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
             font-family: Arial, Helvetica, sans-serif;
             line-height: 1.7;
-            margin: 40px auto;
-            max-width: 900px;
-            padding: 0 20px;
-            background-color: #ffffff;
             color: #222222;
+            background-color: #ffffff;
         }
 
         header {
-            border-bottom: 1px solid #222222;
             margin-bottom: 35px;
             padding-bottom: 15px;
+            border-bottom: 1px solid #222222;
+        }
+
+        .header-top {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
         }
 
         h1 {
@@ -29,9 +42,9 @@
         }
 
         h2 {
-            border-bottom: 1px solid #cccccc;
-            padding-bottom: 5px;
             margin-top: 35px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #cccccc;
         }
 
         h3 {
@@ -44,13 +57,17 @@
 
         nav a {
             margin-right: 20px;
-            text-decoration: none;
-            color: #333333;
             font-weight: bold;
+            color: #333333;
+            text-decoration: none;
         }
 
         nav a:hover {
             text-decoration: underline;
+        }
+
+        a {
+            color: #004488;
         }
 
         ul {
@@ -61,21 +78,45 @@
             margin-bottom: 8px;
         }
 
-        a {
-            color: #004488;
-        }
-
         footer {
             margin-top: 50px;
-            border-top: 1px solid #dddddd;
             padding-top: 15px;
+            border-top: 1px solid #dddddd;
             font-size: 0.9em;
             color: #555555;
         }
 
-        .name-jp {
-            margin-top: 0;
-            font-size: 1.1em;
+        .language-button {
+            padding: 6px 14px;
+            border: 1px solid #333333;
+            border-radius: 999px;
+            color: #222222;
+            background-color: #ffffff;
+            font: inherit;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+
+        .language-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .lang-block.lang-en,
+        .lang-inline.lang-en {
+            display: none;
+        }
+
+        html[data-lang="en"] .lang-block.lang-ja,
+        html[data-lang="en"] .lang-inline.lang-ja {
+            display: none;
+        }
+
+        html[data-lang="en"] .lang-block.lang-en {
+            display: block;
+        }
+
+        html[data-lang="en"] .lang-inline.lang-en {
+            display: inline;
         }
 
         .section {
@@ -86,13 +127,126 @@
             color: #555555;
             font-size: 0.95em;
         }
-    </style>
 
+        .intro {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .profile-figure {
+            margin: 0;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 260px;
+            max-width: 100%;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+        }
+
+        .photo-caption {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .intro-text {
+            flex: 1;
+            padding: 18px 22px;
+            background-color: #f8f8f8;
+            border-left: 4px solid #333333;
+            border-radius: 6px;
+        }
+
+        .profile-name {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 1.25em;
+        }
+
+        .profile-name strong {
+            font-size: 1.2em;
+        }
+
+        .profile-name-en {
+            margin-left: 6px;
+            color: #444444;
+        }
+
+        .pronouns {
+            margin-left: 6px;
+            font-size: 0.9em;
+            color: #666666;
+        }
+
+        .profile-list {
+            margin: 0;
+        }
+
+        .profile-list dt {
+            margin-top: 14px;
+            font-weight: bold;
+            color: #222222;
+        }
+
+        .profile-list dt:first-child {
+            margin-top: 0;
+        }
+
+        .profile-list dd {
+            margin-top: 4px;
+            margin-bottom: 10px;
+            margin-left: 0;
+        }
+
+        .research-tags span {
+            display: inline-block;
+            margin: 4px 6px 4px 0;
+            padding: 3px 9px;
+            background-color: #eeeeee;
+            border-radius: 999px;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 700px) {
+            .header-top {
+                display: block;
+            }
+
+            .language-button {
+                margin-top: 12px;
+            }
+
+            .intro {
+                display: block;
+            }
+
+            .profile-photo {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .intro-text {
+                padding: 16px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <h1>Ryudo Suzuki - Homepage</h1>
+        <div class="header-top">
+            <h1>Ryudo Suzuki - Homepage</h1>
+            <button id="language-toggle" class="language-button" type="button">English</button>
+        </div>
 
         <nav>
             <a href="index.html">About</a>
@@ -103,73 +257,196 @@
     </header>
 
     <main>
-        <h1>Presentations / 発表</h1>
-        <section class="section">
-            <h2>国際学会（口頭発表）</h2>
-            <ul>
-                <li>2026年3月: Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Shin-ichi Sasa, "Anomalous Enhancement
-                    of Yield Force in a Minimal Friction-Stabilized Structure", APS Global Physics Summit 2026 @Denver
-                </li>
-                <li>2025年7月: Ryudo Suzuki, Shin-ichi Sasa, "Anomalous Enhancement of Structural Stability due to Static
-                    Friction", Mini-workshop on "Jamming, rheology and granular matter" @京都大学基礎物理学研究所</li>
-                <li>2025年3月: Ryudo Suzuki, Shin-ichi Sasa, "Transition Between Fracture and Non-Fracture in the Stacking
-                    of Rigid Disks and DEM Simulation", Soft and Liquid Matter Physics: Past, Present and Future @東京大学
-                </li>
-            </ul>
-        </section>
-        <section class="section">
-            <h2>国際学会（ポスター発表）</h2>
-            <ul>
-                <li>2026年3月: 鈴木隆人、松島亘志、山口哲生、谷茉莉、佐々真一, "Friction-Induced Transition in Stacked Cylinders", 国際シンポジウム2026
-                    @京大桂キャンパス</li>
-                <li>2025年7月: Ryudo Suzuki, Shin-ichi Sasa, "Writing and Reading Memory in a Stack of Three Disks",
-                    STATPHYS29 @イタリア フィレンツェ <span class="note"><strong>（受賞: POSTER PRIZE AWARD）</strong></span> </li>
-                <li>2025年2月: Ryudo Suzuki, Shin-ichi Sasa, "Writing and Reading Memory in a Simple Stacked Disk System",
-                    International workshop on Active and Soft Matter - sensing and responsive to its environment
-                    @九州大学伊東キャンパス</li>
-                <li>2024年7月: Ryudo Suzuki, Shin-ichi Sasa, "Force indeterminacy and history-dependence in DEM Simulation
-                    of small number of particles", Long-term Workshop on Frontiers in Non-equilibrium Physics 2024
-                    @基礎物性研究所</li>
-                <li>2024年5月: Ryudo Suzuki, Shin-ichi Sasa, "History Dependence of Indeterminate Forces in DEM
-                    Simulation", IUTAM Symposium on Soft Materials and Soft Robots @東京大学</li>
-            </ul>
-        </section>
-        <section class="section">
-            <h2>国内学会（口頭発表）</h2>
-            <ul>
-                <li>2026年3月: 鈴木隆人, "アスペリティ長さ統計に基づくRSF緩和長さの導出", 日本物理学会 第81回年次大会 @オンライン</li>
-                <li>2025年12月: 鈴木隆人、松島亘志、山口哲生、谷茉莉、佐々真一, "三つの円柱の積み上げにおける異常な力学応答", 第30回 Young Soft Webinar @オンライン</li>
-                <li>2025年9月: 鈴木隆人、松島亘志、山口哲生、佐々真一, "静止摩擦による構造安定性の異常な増大", 日本物理学会 第81回年次大会 @広島大学 東広島キャンパス</li>
-                <li>2025年8月: 鈴木隆人、佐々真一, "静止摩擦が引き起こす構造安定性の異常な増大", 第70回物性若手夏の学校 @滋賀、白浜荘<span class="note"><strong>（受賞:
-                            分科会 発表賞）</strong></span> </li>
-                <li>2025年3月: 鈴木隆人、佐々真一, "３つの円盤積み上げにおける記憶の書き込みと読み出し", 日本物理学会 第80回年次大会 @オンライン</li>
-                <li>2024年9月: 鈴木隆人、佐々真一, "力のつり合い状態が不定な剛体円盤系についての熱力学的考察", 日本物理学会 第79回年次大会 @北海道大学</li>
-                <li>2024年9月: 鈴木隆人、佐々真一, "摩擦を伴う粒子系における履歴現象の制御", 第67回理論応用力学講演会 @神奈川大学みなとみらいキャンパス</li>
-                <li>2023年9月: 鈴木隆人、佐々真一, "円盤の積み上げにおける力の履歴依存性", 日本物理学会 第78年次大会 @東北大学</li>
-            </ul>
-        </section>
-        <section class="section">
-            <h2>国内学会（ポスター発表）</h2>
-            <ul>
-                <li>2026年4月: 鈴木隆人、松島亘志、山口哲生、谷茉莉、佐々真一, “三つの円柱の積み上げにおける降伏⼒の異常増⼤”、動的物質科学 第⼀回領域研究会 @東⼤浅野キャンパス <span
-                        class="note"><strong>（受賞: ポスター賞）</strong></span> </li>
-                <li>2025年11月: 鈴木隆人、佐々真一, "乱れた障害物中の拡散と非平衡駆動によるガラス転移点のシフト", イオン渋滞学 第4回若手の会 @つくば国際会議場</li>
-                <li>2025年11月: 鈴木隆人, "アスペリティ分布を考慮した速度・状態依存摩擦則における緩和長さ", ソフトマター研究会 @京都大学</li>
-                <li>2025年5月: 鈴木隆人、佐々真一, "円盤積み上げにおける破壊・非破壊転移と弾性スケーリング", イオン渋滞学 第３回若手の会 @理化学研究所 和光</li>
-                <li>2025年2月: 鈴木隆人, "円盤積み上げにおける⼒の記憶制御の定式化", 銀楓ファンド 研究交流会, @京都大学 <span class="note"><strong>（受賞:
-                            銀楓賞）</strong></span> </li>
-                <li>2024年12月: 鈴木隆人、佐々真一, "剛体円盤の積み上げにおける破壊・非破壊転移と DEM シミュレーション", ソフトマター研究会 @大阪大学</li>
-                <li>2024年11月: 鈴木隆人、佐々真一, "積み上げた弾性円盤の圧縮破壊とその剛体極限", ソフトマター若手研究会 @東京大学柏キャンパス</li>
-                <li>2024年9月: 鈴木隆人、佐々真一, "摩擦を伴う少数粒子システムの履歴現象の制御", 摩擦学の新展開：アモントン－クーロン則を超えて @京都大学基礎物理学研究所</li>
-                <li>2024年8月: 鈴木隆人, "摩擦を伴う粒子システムにおける履歴現象の制御", 第69回物性若手夏の学校 @愛知県 たつきホテル <span class="note"><strong>（受賞:
-                            ポスター賞）</strong></span> </li>
-            </ul>
-        </section>
+        <div class="lang-block lang-ja">
+            <h1>Presentations / 発表</h1>
+
+            <section class="section">
+                <h2>国際学会（口頭発表）</h2>
+                <ul>
+                    <li>2026年3月: Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Shin-ichi Sasa, "Anomalous
+                        Enhancement of Yield Force in a Minimal Friction-Stabilized Structure", APS Global Physics
+                        Summit 2026 @Denver</li>
+                    <li>2025年7月: Ryudo Suzuki, Shin-ichi Sasa, "Anomalous Enhancement of Structural Stability due to
+                        Static Friction", Mini-workshop on "Jamming, rheology and granular matter" @京都大学基礎物理学研究所</li>
+                    <li>2025年3月: Ryudo Suzuki, Shin-ichi Sasa, "Transition Between Fracture and Non-Fracture in the
+                        Stacking of Rigid Disks and DEM Simulation", Soft and Liquid Matter Physics: Past, Present and
+                        Future @東京大学</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>国際学会（ポスター発表）</h2>
+                <ul>
+                    <li>2026年3月: 鈴木隆人、松島亘志、山口哲生、谷茉莉、佐々真一, "Friction-Induced Transition in Stacked Cylinders",
+                        国際シンポジウム2026 @京大桂キャンパス</li>
+                    <li>2025年7月: Ryudo Suzuki, Shin-ichi Sasa, "Writing and Reading Memory in a Stack of Three Disks",
+                        STATPHYS29 @イタリア フィレンツェ <span class="note"><strong>（受賞: POSTER PRIZE AWARD）</strong></span></li>
+                    <li>2025年2月: Ryudo Suzuki, Shin-ichi Sasa, "Writing and Reading Memory in a Simple Stacked Disk
+                        System", International workshop on Active and Soft Matter - sensing and responsive to its
+                        environment @九州大学伊東キャンパス</li>
+                    <li>2024年7月: Ryudo Suzuki, Shin-ichi Sasa, "Force indeterminacy and history-dependence in DEM
+                        Simulation of small number of particles", Long-term Workshop on Frontiers in Non-equilibrium
+                        Physics 2024 @基礎物性研究所</li>
+                    <li>2024年5月: Ryudo Suzuki, Shin-ichi Sasa, "History Dependence of Indeterminate Forces in DEM
+                        Simulation", IUTAM Symposium on Soft Materials and Soft Robots @東京大学</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>国内学会（口頭発表）</h2>
+                <ul>
+                    <li>2026年3月: 鈴木隆人, "アスペリティ長さ統計に基づくRSF緩和長さの導出", 日本物理学会 第81回年次大会 @オンライン</li>
+                    <li>2025年12月: 鈴木隆人、松島亘志、山口哲生、谷茉莉、佐々真一, "三つの円柱の積み上げにおける異常な力学応答", 第30回 Young Soft Webinar @オンライン</li>
+                    <li>2025年9月: 鈴木隆人、松島亘志、山口哲生、佐々真一, "静止摩擦による構造安定性の異常な増大", 日本物理学会 第81回年次大会 @広島大学 東広島キャンパス</li>
+                    <li>2025年8月: 鈴木隆人、佐々真一, "静止摩擦が引き起こす構造安定性の異常な増大", 第70回物性若手夏の学校 @滋賀、白浜荘 <span
+                            class="note"><strong>（受賞: 分科会 発表賞）</strong></span></li>
+                    <li>2025年3月: 鈴木隆人、佐々真一, "３つの円盤積み上げにおける記憶の書き込みと読み出し", 日本物理学会 第80回年次大会 @オンライン</li>
+                    <li>2024年9月: 鈴木隆人、佐々真一, "力のつり合い状態が不定な剛体円盤系についての熱力学的考察", 日本物理学会 第79回年次大会 @北海道大学</li>
+                    <li>2024年9月: 鈴木隆人、佐々真一, "摩擦を伴う粒子系における履歴現象の制御", 第67回理論応用力学講演会 @神奈川大学みなとみらいキャンパス</li>
+                    <li>2023年9月: 鈴木隆人、佐々真一, "円盤の積み上げにおける力の履歴依存性", 日本物理学会 第78年次大会 @東北大学</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>国内学会（ポスター発表）</h2>
+                <ul>
+                    <li>2026年4月: 鈴木隆人、松島亘志、山口哲生、谷茉莉、佐々真一, “三つの円柱の積み上げにおける降伏⼒の異常増⼤”、動的物質科学 第⼀回領域研究会 @東⼤浅野キャンパス <span
+                            class="note"><strong>（受賞: ポスター賞）</strong></span></li>
+                    <li>2025年11月: 鈴木隆人、佐々真一, "乱れた障害物中の拡散と非平衡駆動によるガラス転移点のシフト", イオン渋滞学 第4回若手の会 @つくば国際会議場</li>
+                    <li>2025年11月: 鈴木隆人, "アスペリティ分布を考慮した速度・状態依存摩擦則における緩和長さ", ソフトマター研究会 @京都大学</li>
+                    <li>2025年5月: 鈴木隆人、佐々真一, "円盤積み上げにおける破壊・非破壊転移と弾性スケーリング", イオン渋滞学 第３回若手の会 @理化学研究所 和光</li>
+                    <li>2025年2月: 鈴木隆人, "円盤積み上げにおける⼒の記憶制御の定式化", 銀楓ファンド 研究交流会, @京都大学 <span class="note"><strong>（受賞:
+                                銀楓賞）</strong></span></li>
+                    <li>2024年12月: 鈴木隆人、佐々真一, "剛体円盤の積み上げにおける破壊・非破壊転移と DEM シミュレーション", ソフトマター研究会 @大阪大学</li>
+                    <li>2024年11月: 鈴木隆人、佐々真一, "積み上げた弾性円盤の圧縮破壊とその剛体極限", ソフトマター若手研究会 @東京大学柏キャンパス</li>
+                    <li>2024年9月: 鈴木隆人、佐々真一, "摩擦を伴う少数粒子システムの履歴現象の制御", 摩擦学の新展開：アモントン－クーロン則を超えて @京都大学基礎物理学研究所</li>
+                    <li>2024年8月: 鈴木隆人, "摩擦を伴う粒子システムにおける履歴現象の制御", 第69回物性若手夏の学校 @愛知県 たつきホテル <span
+                            class="note"><strong>（受賞: ポスター賞）</strong></span></li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="lang-block lang-en">
+            <h1>Presentations</h1>
+
+            <section class="section">
+                <h2>International Conferences: Oral Presentations</h2>
+                <ul>
+                    <li>March 2026: Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Shin-ichi Sasa, "Anomalous
+                        Enhancement of Yield Force in a Minimal Friction-Stabilized Structure", APS Global Physics
+                        Summit 2026 @Denver</li>
+                    <li>July 2025: Ryudo Suzuki, Shin-ichi Sasa, "Anomalous Enhancement of Structural Stability due to
+                        Static Friction", Mini-workshop on "Jamming, rheology and granular matter" @Yukawa Institute for
+                        Theoretical Physics, Kyoto University</li>
+                    <li>March 2025: Ryudo Suzuki, Shin-ichi Sasa, "Transition Between Fracture and Non-Fracture in the
+                        Stacking of Rigid Disks and DEM Simulation", Soft and Liquid Matter Physics: Past, Present and
+                        Future @The University of Tokyo</li>
+                </ul>
+            </section>
+            <section class="section">
+                <h2>International Conferences: Poster Presentations</h2>
+                <ul>
+                    <li>March 2026: Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Marie Tani, Shin-ichi Sasa,
+                        "Friction-Induced Transition in Stacked Cylinders", International Symposium 2026 @Katsura
+                        Campus, Kyoto University</li>
+                    <li>July 2025: Ryudo Suzuki, Shin-ichi Sasa, "Writing and Reading Memory in a Stack of Three Disks",
+                        STATPHYS29 @Florence, Italy <span class="note"><strong>(Award: POSTER PRIZE
+                                AWARD)</strong></span></li>
+                    <li>February 2025: Ryudo Suzuki, Shin-ichi Sasa, "Writing and Reading Memory in a Simple Stacked
+                        Disk System", International workshop on Active and Soft Matter - sensing and responsive to its
+                        environment @Ito Campus, Kyushu University</li>
+                    <li>July 2024: Ryudo Suzuki, Shin-ichi Sasa, "Force indeterminacy and history-dependence in DEM
+                        Simulation of small number of particles", Long-term Workshop on Frontiers in Non-equilibrium
+                        Physics 2024 @Yukawa Institute for Theoretical Physics</li>
+                    <li>May 2024: Ryudo Suzuki, Shin-ichi Sasa, "History Dependence of Indeterminate Forces in DEM
+                        Simulation", IUTAM Symposium on Soft Materials and Soft Robots @The University of Tokyo</li>
+                </ul>
+            </section>
+            <section class="section">
+                <h2>Domestic Conferences: Oral Presentations</h2>
+                <ul>
+                    <li>March 2026: Ryudo Suzuki, "アスペリティ長さ統計に基づくRSF緩和長さの導出", 81st Annual Meeting of the Physical
+                        Society of Japan @Online</li>
+                    <li>December 2025: Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Marie Tani, Shin-ichi Sasa,
+                        "三つの円柱の積み上げにおける異常な力学応答", 30th Young Soft Webinar @Online</li>
+                    <li>September 2025: Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Shin-ichi Sasa,
+                        "静止摩擦による構造安定性の異常な増大", 81st Annual Meeting of the Physical Society of Japan @Higashi-Hiroshima
+                        Campus, Hiroshima University</li>
+                    <li>August 2025: Ryudo Suzuki, Shin-ichi Sasa, "静止摩擦が引き起こす構造安定性の異常な増大", 70th Summer School on
+                        Condensed Matter Physics for Young Researchers @Shirahamaso, Shiga <span
+                            class="note"><strong>(Award: Session Presentation Award)</strong></span></li>
+                    <li>March 2025: Ryudo Suzuki, Shin-ichi Sasa, "３つの円盤積み上げにおける記憶の書き込みと読み出し", 80th Annual Meeting of
+                        the Physical Society of Japan @Online</li>
+                    <li>September 2024: Ryudo Suzuki, Shin-ichi Sasa, "力のつり合い状態が不定な剛体円盤系についての熱力学的考察", 79th Annual
+                        Meeting of the Physical Society of Japan @Hokkaido University</li>
+                    <li>September 2024: Ryudo Suzuki, Shin-ichi Sasa, "摩擦を伴う粒子系における履歴現象の制御", 67th Japan National
+                        Congress for Theoretical and Applied Mechanics @Kanagawa University, Minato Mirai Campus</li>
+                    <li>September 2023: Ryudo Suzuki, Shin-ichi Sasa, "円盤の積み上げにおける力の履歴依存性", 78th Annual Meeting of the
+                        Physical Society of Japan @Tohoku University</li>
+                </ul>
+            </section>
+            <section class="section">
+                <h2>Domestic Conferences: Poster Presentations</h2>
+                <ul>
+                    <li>April 2026: Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Marie Tani, Shin-ichi Sasa,
+                        "三つの円柱の積み上げにおける降伏力の異常増大", 1st Area Meeting on Dynamic Materials Science @Asano Campus, The
+                        University of Tokyo <span class="note"><strong>(Award: Poster Award)</strong></span></li>
+                    <li>November 2025: Ryudo Suzuki, Shin-ichi Sasa, "乱れた障害物中の拡散と非平衡駆動によるガラス転移点のシフト", 4th Young
+                        Researchers' Meeting on Ion Traffic @Tsukuba International Congress Center</li>
+                    <li>November 2025: Ryudo Suzuki, "アスペリティ分布を考慮した速度・状態依存摩擦則における緩和長さ", Soft Matter Meeting @Kyoto
+                        University</li>
+                    <li>May 2025: Ryudo Suzuki, Shin-ichi Sasa, "円盤積み上げにおける破壊・非破壊転移と弾性スケーリング", 3rd Young Researchers'
+                        Meeting on Ion Traffic @RIKEN Wako</li>
+                    <li>February 2025: Ryudo Suzuki, "円盤積み上げにおける力の記憶制御の定式化", Ginpū Fund Research Exchange Meeting @Kyoto
+                        University <span class="note"><strong>(Award: Ginpū Award)</strong></span></li>
+                    <li>December 2024: Ryudo Suzuki, Shin-ichi Sasa, "剛体円盤の積み上げにおける破壊・非破壊転移と DEM シミュレーション", Soft Matter
+                        Meeting @Osaka University</li>
+                    <li>November 2024: Ryudo Suzuki, Shin-ichi Sasa, "積み上げた弾性円盤の圧縮破壊とその剛体極限", Young Soft Matter
+                        Researchers' Meeting @Kashiwa Campus, The University of Tokyo</li>
+                    <li>September 2024: Ryudo Suzuki, Shin-ichi Sasa, "摩擦を伴う少数粒子システムの履歴現象の制御", New Developments in
+                        Tribology: Beyond the Amontons-Coulomb Law @Yukawa Institute for Theoretical Physics, Kyoto
+                        University</li>
+                    <li>August 2024: Ryudo Suzuki, "摩擦を伴う粒子システムにおける履歴現象の制御", 69th Summer School on Condensed Matter
+                        Physics for Young Researchers @Tatsuki Hotel, Aichi <span class="note"><strong>(Award: Poster
+                                Award)</strong></span></li>
+                </ul>
+            </section>
+        </div>
     </main>
+
 
     <footer>
         <p>&copy; Ryudo Suzuki</p>
     </footer>
+
+    <script>
+        (function () {
+            const button = document.getElementById("language-toggle");
+
+            function setLanguage(language) {
+                document.documentElement.dataset.lang = language;
+                document.documentElement.lang = language;
+                localStorage.setItem("site-language", language);
+
+                if (button) {
+                    button.textContent = language === "ja" ? "English" : "日本語";
+                    button.setAttribute(
+                        "aria-label",
+                        language === "ja" ? "Switch to English" : "日本語に切り替える"
+                    );
+                }
+            }
+
+            if (button) {
+                button.addEventListener("click", function () {
+                    const currentLanguage = document.documentElement.dataset.lang || "ja";
+                    setLanguage(currentLanguage === "ja" ? "en" : "ja");
+                });
+            }
+
+            setLanguage(document.documentElement.dataset.lang || "ja");
+        })();
+    </script>
 </body>
 
 </html>

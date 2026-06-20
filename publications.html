@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            const savedLanguage = localStorage.getItem("site-language") || "ja";
+            document.documentElement.dataset.lang = savedLanguage;
+            document.documentElement.lang = savedLanguage;
+        })();
+    </script>
     <title>Publications | Ryudo Suzuki</title>
-
     <style>
         body {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
             font-family: Arial, Helvetica, sans-serif;
             line-height: 1.7;
-            margin: 40px auto;
-            max-width: 900px;
-            padding: 0 20px;
-            background-color: #ffffff;
             color: #222222;
+            background-color: #ffffff;
         }
 
         header {
-            border-bottom: 1px solid #222222;
             margin-bottom: 35px;
             padding-bottom: 15px;
+            border-bottom: 1px solid #222222;
+        }
+
+        .header-top {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
         }
 
         h1 {
@@ -29,9 +42,9 @@
         }
 
         h2 {
-            border-bottom: 1px solid #cccccc;
-            padding-bottom: 5px;
             margin-top: 35px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #cccccc;
         }
 
         h3 {
@@ -44,13 +57,17 @@
 
         nav a {
             margin-right: 20px;
-            text-decoration: none;
-            color: #333333;
             font-weight: bold;
+            color: #333333;
+            text-decoration: none;
         }
 
         nav a:hover {
             text-decoration: underline;
+        }
+
+        a {
+            color: #004488;
         }
 
         ul {
@@ -61,21 +78,45 @@
             margin-bottom: 8px;
         }
 
-        a {
-            color: #004488;
-        }
-
         footer {
             margin-top: 50px;
-            border-top: 1px solid #dddddd;
             padding-top: 15px;
+            border-top: 1px solid #dddddd;
             font-size: 0.9em;
             color: #555555;
         }
 
-        .name-jp {
-            margin-top: 0;
-            font-size: 1.1em;
+        .language-button {
+            padding: 6px 14px;
+            border: 1px solid #333333;
+            border-radius: 999px;
+            color: #222222;
+            background-color: #ffffff;
+            font: inherit;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+
+        .language-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .lang-block.lang-en,
+        .lang-inline.lang-en {
+            display: none;
+        }
+
+        html[data-lang="en"] .lang-block.lang-ja,
+        html[data-lang="en"] .lang-inline.lang-ja {
+            display: none;
+        }
+
+        html[data-lang="en"] .lang-block.lang-en {
+            display: block;
+        }
+
+        html[data-lang="en"] .lang-inline.lang-en {
+            display: inline;
         }
 
         .section {
@@ -86,13 +127,126 @@
             color: #555555;
             font-size: 0.95em;
         }
-    </style>
 
+        .intro {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .profile-figure {
+            margin: 0;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 260px;
+            max-width: 100%;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+        }
+
+        .photo-caption {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .intro-text {
+            flex: 1;
+            padding: 18px 22px;
+            background-color: #f8f8f8;
+            border-left: 4px solid #333333;
+            border-radius: 6px;
+        }
+
+        .profile-name {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 1.25em;
+        }
+
+        .profile-name strong {
+            font-size: 1.2em;
+        }
+
+        .profile-name-en {
+            margin-left: 6px;
+            color: #444444;
+        }
+
+        .pronouns {
+            margin-left: 6px;
+            font-size: 0.9em;
+            color: #666666;
+        }
+
+        .profile-list {
+            margin: 0;
+        }
+
+        .profile-list dt {
+            margin-top: 14px;
+            font-weight: bold;
+            color: #222222;
+        }
+
+        .profile-list dt:first-child {
+            margin-top: 0;
+        }
+
+        .profile-list dd {
+            margin-top: 4px;
+            margin-bottom: 10px;
+            margin-left: 0;
+        }
+
+        .research-tags span {
+            display: inline-block;
+            margin: 4px 6px 4px 0;
+            padding: 3px 9px;
+            background-color: #eeeeee;
+            border-radius: 999px;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 700px) {
+            .header-top {
+                display: block;
+            }
+
+            .language-button {
+                margin-top: 12px;
+            }
+
+            .intro {
+                display: block;
+            }
+
+            .profile-photo {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .intro-text {
+                padding: 16px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <h1>Ryudo Suzuki - Homepage</h1>
+        <div class="header-top">
+            <h1>Ryudo Suzuki - Homepage</h1>
+            <button id="language-toggle" class="language-button" type="button">English</button>
+        </div>
 
         <nav>
             <a href="index.html">About</a>
@@ -103,24 +257,90 @@
     </header>
 
     <main>
-        <h1>Publications / 出版</h1>
-        <ul class="publication-links">
-            <li> <a href="https://scholar.google.co.jp/citations?user=VOgpxVUAAAAJ&amp;hl=ja&amp;oi=ao" target="_blank"
-                    rel="noopener noreferrer"> Google Scholar </a> </li>
-        </ul>
-        <section class="section">
-            <h2>プレプリント</h2>
-            <ol>
-                <li> Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Marie Tani, and Shin-ichi Sasa, <a
-                        href="https://arxiv.org/abs/2511.06807" target="_blank" rel="noopener noreferrer">
-                        arXiv:2511.06807 </a>.
-            </ol>
-        </section>
+        <div class="lang-block lang-ja">
+            <h1>Publications / 出版</h1>
+
+            <ul class="publication-links">
+                <li>
+                    <a href="https://scholar.google.co.jp/citations?user=VOgpxVUAAAAJ&amp;hl=ja&amp;oi=ao"
+                        target="_blank" rel="noopener noreferrer">
+                        Google Scholar
+                    </a>
+                </li>
+            </ul>
+
+            <section class="section">
+                <h2>プレプリント</h2>
+                <ol>
+                    <li>
+                        Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Marie Tani, and Shin-ichi Sasa,
+                        <a href="https://arxiv.org/abs/2511.06807" target="_blank" rel="noopener noreferrer">
+                            arXiv:2511.06807
+                        </a>.
+                    </li>
+                </ol>
+            </section>
+        </div>
+
+        <div class="lang-block lang-en">
+            <h1>Publications</h1>
+
+            <ul class="publication-links">
+                <li>
+                    <a href="https://scholar.google.co.jp/citations?user=VOgpxVUAAAAJ&amp;hl=ja&amp;oi=ao"
+                        target="_blank" rel="noopener noreferrer">
+                        Google Scholar
+                    </a>
+                </li>
+            </ul>
+
+            <section class="section">
+                <h2>Preprints</h2>
+                <ol>
+                    <li>
+                        Ryudo Suzuki, Takashi Matsushima, Tetsuo Yamaguchi, Marie Tani, and Shin-ichi Sasa,
+                        <a href="https://arxiv.org/abs/2511.06807" target="_blank" rel="noopener noreferrer">
+                            arXiv:2511.06807
+                        </a>.
+                    </li>
+                </ol>
+            </section>
+        </div>
     </main>
+
 
     <footer>
         <p>&copy; Ryudo Suzuki</p>
     </footer>
+
+    <script>
+        (function () {
+            const button = document.getElementById("language-toggle");
+
+            function setLanguage(language) {
+                document.documentElement.dataset.lang = language;
+                document.documentElement.lang = language;
+                localStorage.setItem("site-language", language);
+
+                if (button) {
+                    button.textContent = language === "ja" ? "English" : "日本語";
+                    button.setAttribute(
+                        "aria-label",
+                        language === "ja" ? "Switch to English" : "日本語に切り替える"
+                    );
+                }
+            }
+
+            if (button) {
+                button.addEventListener("click", function () {
+                    const currentLanguage = document.documentElement.dataset.lang || "ja";
+                    setLanguage(currentLanguage === "ja" ? "en" : "ja");
+                });
+            }
+
+            setLanguage(document.documentElement.dataset.lang || "ja");
+        })();
+    </script>
 </body>
 
 </html>

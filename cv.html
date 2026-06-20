@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            const savedLanguage = localStorage.getItem("site-language") || "ja";
+            document.documentElement.dataset.lang = savedLanguage;
+            document.documentElement.lang = savedLanguage;
+        })();
+    </script>
     <title>CV | Ryudo Suzuki</title>
-
     <style>
         body {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
             font-family: Arial, Helvetica, sans-serif;
             line-height: 1.7;
-            margin: 40px auto;
-            max-width: 900px;
-            padding: 0 20px;
-            background-color: #ffffff;
             color: #222222;
+            background-color: #ffffff;
         }
 
         header {
-            border-bottom: 1px solid #222222;
             margin-bottom: 35px;
             padding-bottom: 15px;
+            border-bottom: 1px solid #222222;
+        }
+
+        .header-top {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
         }
 
         h1 {
@@ -29,9 +42,9 @@
         }
 
         h2 {
-            border-bottom: 1px solid #cccccc;
-            padding-bottom: 5px;
             margin-top: 35px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #cccccc;
         }
 
         h3 {
@@ -44,13 +57,17 @@
 
         nav a {
             margin-right: 20px;
-            text-decoration: none;
-            color: #333333;
             font-weight: bold;
+            color: #333333;
+            text-decoration: none;
         }
 
         nav a:hover {
             text-decoration: underline;
+        }
+
+        a {
+            color: #004488;
         }
 
         ul {
@@ -61,21 +78,45 @@
             margin-bottom: 8px;
         }
 
-        a {
-            color: #004488;
-        }
-
         footer {
             margin-top: 50px;
-            border-top: 1px solid #dddddd;
             padding-top: 15px;
+            border-top: 1px solid #dddddd;
             font-size: 0.9em;
             color: #555555;
         }
 
-        .name-jp {
-            margin-top: 0;
-            font-size: 1.1em;
+        .language-button {
+            padding: 6px 14px;
+            border: 1px solid #333333;
+            border-radius: 999px;
+            color: #222222;
+            background-color: #ffffff;
+            font: inherit;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+
+        .language-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .lang-block.lang-en,
+        .lang-inline.lang-en {
+            display: none;
+        }
+
+        html[data-lang="en"] .lang-block.lang-ja,
+        html[data-lang="en"] .lang-inline.lang-ja {
+            display: none;
+        }
+
+        html[data-lang="en"] .lang-block.lang-en {
+            display: block;
+        }
+
+        html[data-lang="en"] .lang-inline.lang-en {
+            display: inline;
         }
 
         .section {
@@ -86,13 +127,126 @@
             color: #555555;
             font-size: 0.95em;
         }
-    </style>
 
+        .intro {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .profile-figure {
+            margin: 0;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 260px;
+            max-width: 100%;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+        }
+
+        .photo-caption {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .intro-text {
+            flex: 1;
+            padding: 18px 22px;
+            background-color: #f8f8f8;
+            border-left: 4px solid #333333;
+            border-radius: 6px;
+        }
+
+        .profile-name {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 1.25em;
+        }
+
+        .profile-name strong {
+            font-size: 1.2em;
+        }
+
+        .profile-name-en {
+            margin-left: 6px;
+            color: #444444;
+        }
+
+        .pronouns {
+            margin-left: 6px;
+            font-size: 0.9em;
+            color: #666666;
+        }
+
+        .profile-list {
+            margin: 0;
+        }
+
+        .profile-list dt {
+            margin-top: 14px;
+            font-weight: bold;
+            color: #222222;
+        }
+
+        .profile-list dt:first-child {
+            margin-top: 0;
+        }
+
+        .profile-list dd {
+            margin-top: 4px;
+            margin-bottom: 10px;
+            margin-left: 0;
+        }
+
+        .research-tags span {
+            display: inline-block;
+            margin: 4px 6px 4px 0;
+            padding: 3px 9px;
+            background-color: #eeeeee;
+            border-radius: 999px;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 700px) {
+            .header-top {
+                display: block;
+            }
+
+            .language-button {
+                margin-top: 12px;
+            }
+
+            .intro {
+                display: block;
+            }
+
+            .profile-photo {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .intro-text {
+                padding: 16px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <h1>Ryudo Suzuki - Homepage</h1>
+        <div class="header-top">
+            <h1>Ryudo Suzuki - Homepage</h1>
+            <button id="language-toggle" class="language-button" type="button">English</button>
+        </div>
 
         <nav>
             <a href="index.html">About</a>
@@ -103,88 +257,238 @@
     </header>
 
     <main>
-        <h1>CV / 履歴書</h1>
+        <div class="lang-block lang-ja">
+            <h1>CV / 履歴書</h1>
 
-        <section class="section">
-            <h2>プロフィール</h2>
-            <p>1999年岡山生まれ、フィラデルフィア→東京→京都→愛媛→大阪と移動し、現在京都に至る。</p>
-        </section>
+            <section class="section">
+                <h2>プロフィール</h2>
+                <p>1999年岡山生まれ、フィラデルフィア→東京→京都→愛媛→大阪と移動し、現在京都に至る。</p>
+            </section>
 
-        <section class="section">
-            <h2>学歴</h2>
-            <ul>
-                <li>2025年4月 - 現在: 京都大学大学院理学研究科物理学・宇宙物理学専攻 博士後期課程 (指導教官: 佐々真一教授)</li>
-                <li>2023年4月 - 2025年3月: 京都大学大学院理学研究科物理学・宇宙物理学専攻 修士課程 (指導教官: 佐々真一教授)</li>
-                <li>2019年4月 - 2023年3月: 京都大学理学部</li>
-            </ul>
-        </section>
+            <section class="section">
+                <h2>学歴</h2>
+                <ul>
+                    <li>2025年4月 - 現在: 京都大学大学院理学研究科物理学・宇宙物理学専攻 博士後期課程 (指導教官: 佐々真一教授)</li>
+                    <li>2023年4月 - 2025年3月: 京都大学大学院理学研究科物理学・宇宙物理学専攻 修士課程 (指導教官: 佐々真一教授)</li>
+                    <li>2019年4月 - 2023年3月: 京都大学理学部</li>
+                </ul>
+            </section>
 
-        <section class="section">
-            <h2>職歴</h2>
-            <ul>
-                <li>2023年5月 - 2024年3月: 京都大学 ティーチングアシスタント</li>
-            </ul>
-        </section>
+            <section class="section">
+                <h2>職歴</h2>
+                <ul>
+                    <li>2023年5月 - 2024年3月: 京都大学 ティーチングアシスタント</li>
+                </ul>
+            </section>
 
-        <section class="section">
-            <h2>受賞</h2>
-            <ul>
-                <li> 2026年4月: <a href="https://dms.phys.s.u-tokyo.ac.jp/event-20260427.php" target="_blank"
-                        rel="noopener noreferrer"> ポスター賞
-                    </a>, 動的物質科学 第一回領域研究会 </li>
-                <li> 2025年8月: <a href="https://cmpss.jp/ss2025/" target="_blank" rel="noopener noreferrer"> 分科会 発表賞
-                    </a>, 第70回物性若手夏の学校 </li>
-                <li> 2025年7月: <a href="https://statphys29.org/" target="_blank" rel="noopener noreferrer"> POSTER PRIZE
-                        AWARD, 1st Prize for the topic6 Soft matter </a>, STATPHYS29 </li>
-                <li> 2025年2月: <a href="https://www.sci.kyoto-u.ac.jp/ja/news-447" target="_blank"
-                        rel="noopener noreferrer"> 銀楓賞 </a>, 銀楓ファンド 研究交流会 </li>
-                <li> 2024年8月: <a href="https://cmpss.jp/ss2024/awards.php" target="_blank" rel="noopener noreferrer">
-                        ポスター賞 </a>, 第69回物性若手夏の学校 </li>
-            </ul>
-        </section>
+            <section class="section">
+                <h2>受賞</h2>
+                <ul>
+                    <li>
+                        2026年4月:
+                        <a href="https://dms.phys.s.u-tokyo.ac.jp/event-20260427.php" target="_blank"
+                            rel="noopener noreferrer">ポスター賞</a>,
+                        動的物質科学 第一回領域研究会
+                    </li>
+                    <li>
+                        2025年8月:
+                        <a href="https://cmpss.jp/ss2025/" target="_blank" rel="noopener noreferrer">分科会 発表賞</a>,
+                        第70回物性若手夏の学校
+                    </li>
+                    <li>
+                        2025年7月:
+                        <a href="https://statphys29.org/" target="_blank" rel="noopener noreferrer">
+                            POSTER PRIZE AWARD, 1st Prize for the topic6 Soft matter
+                        </a>,
+                        STATPHYS29
+                    </li>
+                    <li>
+                        2025年2月:
+                        <a href="https://www.sci.kyoto-u.ac.jp/ja/news-447" target="_blank"
+                            rel="noopener noreferrer">銀楓賞</a>,
+                        銀楓ファンド 研究交流会
+                    </li>
+                    <li>
+                        2024年8月:
+                        <a href="https://cmpss.jp/ss2024/awards.php" target="_blank"
+                            rel="noopener noreferrer">ポスター賞</a>,
+                        第69回物性若手夏の学校
+                    </li>
+                </ul>
+            </section>
 
-        <section class="section">
-            <h2>外部資金</h2>
-            <ul>
-                <li>FY2025: 2025年度後期 大学院教育支援機構（DoGS）海外渡航助成金（助成金60万円）</li>
-                <li>FY2025 - FY2028: 京都大学大学院教育支援機構SPRINGプログラム（研究題目：摩擦現象への統計物理アプローチ, 研究費年額40万円, 研究奨励費月額18万円）</li>
-                <li>FY2024 - FY2025: 銀楓ファンド研究助成（研究題目：砂山の履歴現象の熱力学的な理解, 研究費50万円）</li>
-                <li>FY2024 - FY2025: 大学院教育支援機構 企業寄附奨学制度（DDD）（奨学金45万円）</li>
-            </ul>
-        </section>
+            <section class="section">
+                <h2>外部資金</h2>
+                <ul>
+                    <li>FY2025: 2025年度後期 大学院教育支援機構（DoGS）海外渡航助成金（助成金60万円）</li>
+                    <li>FY2025 - FY2028: 京都大学大学院教育支援機構SPRINGプログラム（研究題目：摩擦現象への統計物理アプローチ, 研究費年額40万円, 研究奨励費月額18万円）</li>
+                    <li>FY2024 - FY2025: 銀楓ファンド研究助成（研究題目：砂山の履歴現象の熱力学的な理解, 研究費50万円）</li>
+                    <li>FY2024 - FY2025: 大学院教育支援機構 企業寄附奨学制度（DDD）（奨学金45万円）</li>
+                </ul>
+            </section>
 
-        <section class="section">
-            <h2>外部活動、参画プログラム、会議世話人</h2>
-            <ul>
-                <li>2025年8月: 第70回物性若手夏の学校　集中ゼミD世話人</li>
-            </ul>
-        </section>
+            <section class="section">
+                <h2>外部活動、参画プログラム、会議世話人</h2>
+                <ul>
+                    <li>2025年8月: 第70回物性若手夏の学校　集中ゼミD世話人</li>
+                </ul>
+            </section>
 
-        <section class="section">
-            <h2>その他</h2>
-            <p> 趣味はランニング。
-                以下は、これまでに出場したマラソン大会の記録です。 </p>
-            <h3>フルマラソン</h3>
-            <ul>
-                <li>2023年2月5日: 第40回京都木津川マラソン大会, 4時間49分45秒</li>
-                <li>2023年11月12日: 松本マラソン2023, 5時間49分31秒</li>
-                <li>2024年2月18日: 京都マラソン2024, 5時間52分52秒</li>
-            </ul>
-            <h3>ハーフマラソン</h3>
-            <ul>
-                <li>2021年10月23日: 第1回オオサカランナーズトライアル, 1時間47分33秒</li>
-                <li>2023年6月4日: 第36回たたらぎダム湖マラソン大会, 1時間56分34秒</li>
-                <li>2024年12月8日: 第10回京都亀岡ハーフマラソン大会, 1時間48分49秒</li>
-                <li>2025年10月18日: 第3回上関海峡ゆうやけマラソン大会, 2時間29分3秒</li>
-                <li>2026年5月31日: 第44回大阪淀川チャレンジマラソン, 1時間51分21秒</li>
-            </ul>
-        </section>
+            <section class="section">
+                <h2>その他</h2>
+                <p>趣味はランニング。以下は、これまでに出場したマラソン大会の記録です。</p>
 
+                <h3>フルマラソン</h3>
+                <ul>
+                    <li>2023年2月5日: 第40回京都木津川マラソン大会, 4時間49分45秒</li>
+                    <li>2023年11月12日: 松本マラソン2023, 5時間49分31秒</li>
+                    <li>2024年2月18日: 京都マラソン2024, 5時間52分52秒</li>
+                </ul>
+
+                <h3>ハーフマラソン</h3>
+                <ul>
+                    <li>2021年10月23日: 第1回オオサカランナーズトライアル, 1時間47分33秒</li>
+                    <li>2023年6月4日: 第36回たたらぎダム湖マラソン大会, 1時間56分34秒</li>
+                    <li>2024年12月8日: 第10回京都亀岡ハーフマラソン大会, 1時間48分49秒</li>
+                    <li>2025年10月18日: 第3回上関海峡ゆうやけマラソン大会, 2時間29分3秒</li>
+                    <li>2026年5月31日: 第44回大阪淀川チャレンジマラソン, 1時間51分21秒</li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="lang-block lang-en">
+            <h1>CV</h1>
+
+            <section class="section">
+                <h2>Profile</h2>
+                <p>Born in Okayama in 1999. After living in Philadelphia, Tokyo, Kyoto, Ehime, and Osaka, I am now based in Kyoto.</p>
+            </section>
+
+            <section class="section">
+                <h2>Education</h2>
+                <ul>
+                    <li>April 2025 - Present: Doctoral Program, Department of Physics and Astronomy, Graduate School of Science, Kyoto University (Supervisor: Prof. Shin-ichi Sasa)</li>
+                    <li>April 2023 - March 2025: Master's Program, Department of Physics and Astronomy, Graduate School of Science, Kyoto University (Supervisor: Prof. Shin-ichi Sasa)</li>
+                    <li>April 2019 - March 2023: Faculty of Science, Kyoto University</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Work Experience</h2>
+                <ul>
+                    <li>May 2023 - March 2024: Teaching Assistant, Kyoto University</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Awards</h2>
+                <ul>
+                    <li>
+                        April 2026:
+                        <a href="https://dms.phys.s.u-tokyo.ac.jp/event-20260427.php" target="_blank"
+                            rel="noopener noreferrer">Poster Award</a>,
+                        1st Area Meeting on Dynamic Materials Science
+                    </li>
+                    <li>
+                        August 2025:
+                        <a href="https://cmpss.jp/ss2025/" target="_blank" rel="noopener noreferrer">Session Presentation Award</a>,
+                        70th Summer School on Condensed Matter Physics for Young Researchers
+                    </li>
+                    <li>
+                        July 2025:
+                        <a href="https://statphys29.org/" target="_blank" rel="noopener noreferrer">
+                            POSTER PRIZE AWARD, 1st Prize for the topic 6 Soft Matter
+                        </a>,
+                        STATPHYS29
+                    </li>
+                    <li>
+                        February 2025:
+                        <a href="https://www.sci.kyoto-u.ac.jp/ja/news-447" target="_blank"
+                            rel="noopener noreferrer">Ginpū Award</a>,
+                        Ginpū Fund Research Exchange Meeting
+                    </li>
+                    <li>
+                        August 2024:
+                        <a href="https://cmpss.jp/ss2024/awards.php" target="_blank"
+                            rel="noopener noreferrer">Poster Award</a>,
+                        69th Summer School on Condensed Matter Physics for Young Researchers
+                    </li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Grants and Fellowships</h2>
+                <ul>
+                    <li>FY2025: Kyoto University DoGS Overseas Travel Grant for the second semester of FY2025 (JPY 600,000)</li>
+                    <li>FY2025 - FY2028: Kyoto University SPRING Program, Division of Graduate Studies (Research title: A statistical physics approach to friction phenomena; annual research grant: JPY 400,000; monthly fellowship: JPY 180,000)</li>
+                    <li>FY2024 - FY2025: Ginpū Fund Research Grant (Research title: Thermodynamic understanding of hysteresis in sand piles; research grant: JPY 500,000)</li>
+                    <li>FY2024 - FY2025: Division of Graduate Studies, Donor Designated Scholarship Program (DDD) (scholarship: JPY 450,000)</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Activities, Programs, and Conference Organization</h2>
+                <ul>
+                    <li>August 2025: Organizer of Intensive Seminar D, 70th Summer School on Condensed Matter Physics for Young Researchers</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Other</h2>
+                <p>My hobby is running. Below are records from marathon races I have participated in.</p>
+
+                <h3>Full Marathon</h3>
+                <ul>
+                    <li>February 5, 2023: 40th Kyoto Kizugawa Marathon, 4:49:45</li>
+                    <li>November 12, 2023: Matsumoto Marathon 2023, 5:49:31</li>
+                    <li>February 18, 2024: Kyoto Marathon 2024, 5:52:52</li>
+                </ul>
+
+                <h3>Half Marathon</h3>
+                <ul>
+                    <li>October 23, 2021: 1st Osaka Runners Trial, 1:47:33</li>
+                    <li>June 4, 2023: 36th Tataragi Dam Lake Marathon, 1:56:34</li>
+                    <li>December 8, 2024: 10th Kyoto Kameoka Half Marathon, 1:48:49</li>
+                    <li>October 18, 2025: 3rd Kaminoseki Kaikyo Sunset Marathon, 2:29:03</li>
+                    <li>May 31, 2026: 44th Osaka Yodogawa Challenge Marathon, 1:51:21</li>
+                </ul>
+            </section>
+        </div>
     </main>
+
 
     <footer>
         <p>&copy; Ryudo Suzuki</p>
     </footer>
+
+    <script>
+        (function () {
+            const button = document.getElementById("language-toggle");
+
+            function setLanguage(language) {
+                document.documentElement.dataset.lang = language;
+                document.documentElement.lang = language;
+                localStorage.setItem("site-language", language);
+
+                if (button) {
+                    button.textContent = language === "ja" ? "English" : "日本語";
+                    button.setAttribute(
+                        "aria-label",
+                        language === "ja" ? "Switch to English" : "日本語に切り替える"
+                    );
+                }
+            }
+
+            if (button) {
+                button.addEventListener("click", function () {
+                    const currentLanguage = document.documentElement.dataset.lang || "ja";
+                    setLanguage(currentLanguage === "ja" ? "en" : "ja");
+                });
+            }
+
+            setLanguage(document.documentElement.dataset.lang || "ja");
+        })();
+    </script>
 </body>
 
 </html>
