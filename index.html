@@ -5,22 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ryudo Suzuki</title>
-
     <style>
         body {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
             font-family: Arial, Helvetica, sans-serif;
             line-height: 1.7;
-            margin: 40px auto;
-            max-width: 900px;
-            padding: 0 20px;
-            background-color: #ffffff;
             color: #222222;
+            background-color: #ffffff;
         }
 
         header {
-            border-bottom: 1px solid #222222;
             margin-bottom: 35px;
             padding-bottom: 15px;
+            border-bottom: 1px solid #222222;
         }
 
         h1 {
@@ -29,9 +28,9 @@
         }
 
         h2 {
-            border-bottom: 1px solid #cccccc;
-            padding-bottom: 5px;
             margin-top: 35px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #cccccc;
         }
 
         nav {
@@ -40,27 +39,27 @@
 
         nav a {
             margin-right: 20px;
-            text-decoration: none;
-            color: #333333;
             font-weight: bold;
+            color: #333333;
+            text-decoration: none;
         }
 
         nav a:hover {
             text-decoration: underline;
         }
 
-        ul {
-            padding-left: 22px;
-        }
-
         a {
             color: #004488;
         }
 
+        ul {
+            padding-left: 22px;
+        }
+
         footer {
             margin-top: 50px;
-            border-top: 1px solid #dddddd;
             padding-top: 15px;
+            border-top: 1px solid #dddddd;
             font-size: 0.9em;
             color: #555555;
         }
@@ -77,15 +76,80 @@
             margin-top: 20px;
         }
 
-        .intro-text {
-            flex: 1;
+        .profile-figure {
+            margin: 0;
+            text-align: center;
         }
 
         .profile-photo {
             width: 260px;
             max-width: 100%;
-            border-radius: 6px;
             border: 1px solid #dddddd;
+            border-radius: 6px;
+        }
+
+        .photo-caption {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .intro-text {
+            flex: 1;
+            padding: 18px 22px;
+            background-color: #f8f8f8;
+            border-left: 4px solid #333333;
+            border-radius: 6px;
+        }
+
+        .profile-name {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 1.25em;
+        }
+
+        .profile-name strong {
+            font-size: 1.2em;
+        }
+
+        .profile-name-en {
+            margin-left: 6px;
+            color: #444444;
+        }
+
+        .pronouns {
+            margin-left: 6px;
+            font-size: 0.9em;
+            color: #666666;
+        }
+
+        .profile-list {
+            margin: 0;
+        }
+
+        .profile-list dt {
+            margin-top: 14px;
+            font-weight: bold;
+            color: #222222;
+        }
+
+        .profile-list dt:first-child {
+            margin-top: 0;
+        }
+
+        .profile-list dd {
+            margin-top: 4px;
+            margin-bottom: 10px;
+            margin-left: 0;
+        }
+
+        .research-tags span {
+            display: inline-block;
+            margin: 4px 6px 4px 0;
+            padding: 3px 9px;
+            background-color: #eeeeee;
+            border-radius: 999px;
+            font-size: 0.95em;
         }
 
         .affiliation {
@@ -102,6 +166,10 @@
                 margin-bottom: 20px;
             }
 
+            .intro-text {
+                padding: 16px;
+            }
+
             nav a {
                 display: inline-block;
                 margin-bottom: 8px;
@@ -112,67 +180,49 @@
 
 <body>
     <header>
-        <h1>Ryudo Suzuki</h1>
-        <p class="name-jp">鈴木 隆人</p>
-
-        <nav>
-            <a href="index.html">About</a>
-            <a href="cv.html">CV</a>
-            <a href="publications.html">Publications</a>
-            <a href="presentations.html">Presentations</a>
-        </nav>
+        <h1>Ryudo Suzuki - Homepage</h1>
+        <nav> <a href="index.html">About</a> <a href="cv.html">CV</a> <a href="publications.html">Publications</a> <a
+                href="presentations.html">Presentations</a> </nav>
     </header>
-
     <main>
         <section>
-            <h2>About</h2>
-
+            <h1>About</h1>
             <div class="intro">
-                <img src="images/profile.png" alt="Photo of Ryudo Suzuki" class="profile-photo">
-
+                <figure class="profile-figure"> <img src="images/profile.png" alt="Photo of Ryudo Suzuki"
+                        class="profile-photo"> </figure>
                 <div class="intro-text">
-                    <p class="affiliation">
-                        京都大学大学院理学研究科 物理学・宇宙物理学専攻 博士後期課程。
+                    <p class="profile-name"> <strong>鈴木 隆人</strong> <span class="profile-name-en">/ Ryudo Suzuki</span>
+                        <span class="pronouns">(he/him)</span>
                     </p>
-                    <p>
-                        統計物理学、非平衡物理学、摩擦現象、粉体系などに興味があります。
-                    </p>
+                    <dl class="profile-list">
+                        <dt>所属</dt>
+                        <dd> 京都大学大学院理学研究科 物理学・宇宙物理学専攻<br> 佐々研究室 </dd>
+                        <dt>学年</dt>
+                        <dd>博士後期課程2年</dd>
+                        <dt>研究の興味</dt>
+                        <dd class="research-tags"> <span>統計物理学</span> <span>非平衡物理学</span> <span>摩擦現象</span>
+                            <span>粉体系</span> <span>ソフトマター</span>
+                        </dd>
+                    </dl>
                 </div>
             </div>
         </section>
-
-        <section>
-            <h2>Research Interests</h2>
-            <ul>
-                <li>Statistical physics</li>
-                <li>Non-equilibrium physics</li>
-                <li>Friction</li>
-                <li>Granular matter</li>
-                <li>Soft matter</li>
-            </ul>
-        </section>
-
         <section>
             <h2>Links</h2>
             <ul>
-                <li><a href="cv.html">CV / 履歴書</a></li>
-                <li><a href="presentations.html">Presentations / 発表</a></li>
-                <li><a href="publications.html">Publications / 論文</a></li>
-                <li><a href="https://orcid.org/0009-0005-3344-2934" target="_blank" rel="noopener noreferrer">ORCID</a>
-                </li>
-                <li><a href="https://scholar.google.co.jp/citations?user=VOgpxVUAAAAJ&amp;hl=ja&amp;oi=ao"
-                        target="_blank" rel="noopener noreferrer">Google Scholar</a></li>
+                <li> <a href="https://orcid.org/0009-0005-3344-2934" target="_blank" rel="noopener noreferrer"> ORCID
+                    </a> </li>
+                <li> <a href="https://scholar.google.co.jp/citations?user=VOgpxVUAAAAJ&amp;hl=ja&amp;oi=ao"
+                        target="_blank" rel="noopener noreferrer"> Google Scholar </a> </li>
+                <li> <a href="http://www.ton.scphys.kyoto-u.ac.jp/" target="_blank" rel="noopener noreferrer"> 佐々研究室
+                    </a> </li>
             </ul>
         </section>
-
         <section>
             <h2>Contact</h2>
-            <p>
-                Email: suzuki.ryudo.55e [at] st.kyoto-u.ac.jp
-            </p>
+            <p> Email: suzuki.ryudo.55e [at] st.kyoto-u.ac.jp </p>
         </section>
     </main>
-
     <footer>
         <p>&copy; Ryudo Suzuki</p>
     </footer>
